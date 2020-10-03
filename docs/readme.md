@@ -1,0 +1,1 @@
+1. MyBatis通用Mapper:https://github.com/abel533/Mapper
