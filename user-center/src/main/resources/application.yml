@@ -13,6 +13,9 @@ spring:
         # namespace: c8feaebd-fac2-4c27-8b46-ca7709b9c62c
         # 指定集群名称
         # cluster-name: NJ
+        metadata:
+          version: 1.0
+          hello: world
   application:
     # 服务名称尽量用中-，不要用_，更不要用特殊字符串
     name: user-center
