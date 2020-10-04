@@ -18,5 +18,9 @@ server:
 user-center:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
-
-
+# ribbon 饥饿加载
+ribbon:
+  eager-load:
+    enabled: true
+    # 这里可以细粒度配置哪些微服务需要饥饿加载，多个用逗号分隔
+    clients: user-center
