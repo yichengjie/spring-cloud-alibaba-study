@@ -9,6 +9,10 @@ spring:
       discovery:
         # 指定nacos server的地址，注意前面不要加协议http
         server-addr: 192.168.221.128:8848
+        # 指定namespace
+        # namespace: c8feaebd-fac2-4c27-8b46-ca7709b9c62c
+        # 指定集群名称
+        # cluster-name: NJ
   application:
     # 服务名称尽量用中-，不要用_，更不要用特殊字符串
     name: user-center
