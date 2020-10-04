@@ -12,6 +12,9 @@ spring:
   application:
     # 服务名称尽量用中-，不要用_，更不要用特殊字符串
     name: content-center
+  # 允许bean define 覆盖
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 8010
 
@@ -24,3 +27,14 @@ ribbon:
     enabled: true
     # 这里可以细粒度配置哪些微服务需要饥饿加载，多个用逗号分隔
     clients: user-center
+logging:
+  level:
+    com.yicj.contentcenter.feignclient.UserCenterFeignClient: debug
+#feign.client.config.<feignName>.loggerLevel=full   # 通常feignName即微服务的名称
+feign:
+  client:
+    config:
+      # 微服务的名称
+      user-center:
+        loggerLevel: full
+

@@ -2,8 +2,12 @@ package com.yicj.contentcenter.controller;
 
 
 import com.yicj.contentcenter.dao.content.ShareMapper;
+import com.yicj.contentcenter.domain.dto.user.UserDTO;
 import com.yicj.contentcenter.domain.entity.content.Share;
+import com.yicj.contentcenter.feignclient.TestBaiduFeignClient;
+import com.yicj.contentcenter.feignclient.TestUserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -20,6 +24,10 @@ public class TestController {
     private final ShareMapper shareMapper ;
     @Autowired
     private DiscoveryClient discoveryClient ;
+    @Autowired
+    private TestUserCenterFeignClient testUserCenterFeignClient ;
+    @Autowired
+    private TestBaiduFeignClient testBaiduFeignClient ;
 
     @GetMapping("/test")
     public List<Share> testInsert(){
@@ -45,5 +53,15 @@ public class TestController {
     public List<ServiceInstance> getInstances(){
         // 查询指定服务的所有实例的信息
         return this.discoveryClient.getInstances("user-center");
+    }
+
+    @GetMapping("/test-get")
+    public UserDTO query(UserDTO user){
+        return testUserCenterFeignClient.query(user) ;
+    }
+
+    @GetMapping("/baidu")
+    public String baiduIndex(){
+        return testBaiduFeignClient.index() ;
     }
 }

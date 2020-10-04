@@ -27,4 +27,8 @@ public class TestController {
         return user ;
     }
 
+    @GetMapping("/q")
+    public User query(User user){
+        return user ;
+    }
 }

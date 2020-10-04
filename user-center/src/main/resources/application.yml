@@ -20,4 +20,6 @@ spring:
     # 服务名称尽量用中-，不要用_，更不要用特殊字符串
     name: user-center
 server:
-  port: 8081
+  port: 8080
+
+
