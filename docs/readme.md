@@ -1,7 +1,9 @@
-1. MyBatis通用Mapper:https://github.com/abel533/Mapper
-2. idea中Mapper注入报错提示：http://www.imooc.com/article/287865
-3. 研究@Repository @Component @Service @Controller的区别
-4. spring-cloud-alibaba(github 注意看wiki)
+1. 大目手记：http://www.imooc.com/t/1863086#Article
+2. MyBatis通用Mapper:https://github.com/abel533/Mapper
+3. idea中Mapper注入报错提示：http://www.imooc.com/article/287865
+4. 研究@Repository @Component @Service @Controller的区别
+5. spring-cloud-alibaba(github 注意看wiki)
+6. 了解stream -> jdk 8, lambda表达式，functional -> 函数式编成
 ###方式一(Schema First)
 1. 分析业务(流程图、用例图....架构图) ---> 建模业务，并且确定架构
 2. 确定业务流程（评审）

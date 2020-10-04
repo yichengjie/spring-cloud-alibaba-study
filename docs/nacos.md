@@ -1,9 +1,15 @@
+1. 添加依赖
+```text
+ <dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+ </dependency>
+```
+2. 添加配置
+
+```text
+# spring.application.name 必须，否则nacos中无法注册    
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/user_center?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-    username: root
-    password: root
   cloud:
     nacos:
       discovery:
@@ -12,5 +18,4 @@ spring:
   application:
     # 服务名称尽量用中-，不要用_，更不要用特殊字符串
     name: user-center
-server:
-  port: 8080
+```

@@ -4,6 +4,14 @@ spring:
     url: jdbc:mysql://localhost:3306/content_center?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     username: root
     password: root
+  cloud:
+    nacos:
+      discovery:
+        # 指定nacos server的地址，注意前面不要加协议http
+        server-addr: 192.168.221.128:8848
+  application:
+    # 服务名称尽量用中-，不要用_，更不要用特殊字符串
+    name: content-center
 server:
   port: 8010
 
