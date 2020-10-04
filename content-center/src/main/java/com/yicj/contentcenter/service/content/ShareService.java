@@ -8,14 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,7 +17,6 @@ import java.util.stream.Collectors;
 public class ShareService {
     private final ShareMapper shareMapper ;
     private final RestTemplate restTemplate;
-    private final DiscoveryClient discoveryClient ;
 
     public ShareDTO findById(Integer id){
         // 1. 查询share
@@ -32,16 +25,8 @@ public class ShareService {
         Integer userId = share.getUserId();
         //2. 调用用户微服务的/users/{userId}
         // 用户中心的所有实例信息
-        List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
-        List<String> targetUrls = instances.stream()
-                .map(instance -> instance.getUri().toString() + "/users/{id}")
-                .collect(Collectors.toList());
-
-        int i = ThreadLocalRandom.current().nextInt(targetUrls.size());
-        String targetUrl = targetUrls.get(i) ;
-        log.info("target uri : {}", targetUrl);
         //http://localhost:8080/users/{id}
-        UserDTO userDTO = restTemplate.getForObject(targetUrl, UserDTO.class, 1);
+        UserDTO userDTO = restTemplate.getForObject("http://user-center/users/{id}", UserDTO.class, 1);
         //3. 组装信息返回
         ShareDTO shareDTO = new ShareDTO() ;
         BeanUtils.copyProperties(share, shareDTO);
