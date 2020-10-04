@@ -16,10 +16,15 @@ spring:
         metadata:
           version: 1.0
           hello: world
+    sentinel:
+      transport:
+        dashboard: 192.168.221.128:8080
   application:
     # 服务名称尽量用中-，不要用_，更不要用特殊字符串
     name: user-center
 server:
   port: 8080
+
+
 
 

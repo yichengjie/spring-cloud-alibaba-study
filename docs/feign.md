@@ -69,13 +69,14 @@
     ```
 10. Feign构造多参数的请求:http://www.imooc.com/article/289000
 11. 性能优化
-```text
-添加依赖
-<dependency>
-    <groupId>io.github.openfeign</groupId>
-    <artifactId>feign-httpclient</artifactId>
-</dependency>
-增加配置
-feign.httpclient.enabled = true
+    ```text
+    添加依赖
+    <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-httpclient</artifactId>
+    </dependency>
+    增加配置
+    feign.httpclient.enabled = true
+    ```
+12. 常见问题总结：http://www.imooc.com/article/289005
 
-```

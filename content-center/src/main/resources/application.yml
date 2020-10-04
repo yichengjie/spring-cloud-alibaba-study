@@ -9,6 +9,10 @@ spring:
       discovery:
         # 指定nacos server的地址，注意前面不要加协议http
         server-addr: 192.168.221.128:8848
+    # 指定sentinel 控制台的地址
+    sentinel:
+      transport:
+        dashboard: 192.168.221.128:8080
   application:
     # 服务名称尽量用中-，不要用_，更不要用特殊字符串
     name: content-center
@@ -44,4 +48,10 @@ feign:
     max-connections: 200
     # 单个路径的最大连接数
     max-connections-per-route: 50
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
