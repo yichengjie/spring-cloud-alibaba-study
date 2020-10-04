@@ -3,6 +3,7 @@ package com.yicj.contentcenter.controller;
 
 import com.yicj.contentcenter.dao.content.ShareMapper;
 import com.yicj.contentcenter.domain.entity.content.Share;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +12,11 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
 
-    @Autowired
-    private ShareMapper shareMapper ;
+    //@Autowired
+    private final ShareMapper shareMapper ;
 
     @GetMapping("/test")
     public List<Share> testInsert(){
