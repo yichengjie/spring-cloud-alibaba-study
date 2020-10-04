@@ -140,3 +140,4 @@ public class NacosSameClusterWeightedRule extends AbstractLoadBalancerRule {
     }
 }
 ```
+11. 支持基于元数据的版本管理：http://www.imooc.com/article/288674
