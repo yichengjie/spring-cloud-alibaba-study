@@ -33,6 +33,20 @@ public class UserController {
         return userService.findById(id) ;
     }
 
+    /**
+     * 模拟生成token（假登录）
+     * @return
+     */
+    @GetMapping("/genToken")
+    public String genToken(){
+        Map<String,Object> userInfo = new HashMap<>() ;
+        userInfo.put("id",1) ;
+        userInfo.put("wxNickname","yicj") ;
+        userInfo.put("role","user") ;
+        String token = jwtOperator.generateToken(userInfo);
+        return token ;
+    }
+
     @PostMapping("/login")
     public LoginRespDTO login(@RequestBody UserLoginDTO loginDTO) throws WxErrorException {
         // 微信小程序服务端校验是否已经登录的结果
