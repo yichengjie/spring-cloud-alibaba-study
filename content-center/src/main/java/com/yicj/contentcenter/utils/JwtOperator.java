@@ -1,4 +1,4 @@
-package com.yicj.usercenter.utils;
+package com.yicj.contentcenter.utils;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

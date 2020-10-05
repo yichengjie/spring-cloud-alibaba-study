@@ -6,6 +6,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class JwtOperatorTest {
@@ -40,11 +42,14 @@ public class JwtOperatorTest {
     }
 
     @Test
-    public void validateAndGetUserInfo(){
+    public void getUserInfo(){
         // 将我改成上面生成的token!!!
         String someToken = "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDE4OTgxOTYsImV4cCI6MTYwMzEwNzc5Nn0.alcM0doFPcHm3q1SoRdWtnN_v0rZd8biNNzo4682IrM";
         // 测试3: 获取用户信息
         Claims claims = jwtOperator.getClaimsFromToken(someToken);
+        Date expiration = claims.getExpiration();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
+        System.out.println(format.format(expiration));
         System.out.println(claims);
     }
 
@@ -66,6 +71,13 @@ public class JwtOperatorTest {
     public void validate3(){
         // 测试6: 这是一个被篡改的token，因此会报异常，说明JWT是安全的
         jwtOperator.validateToken("eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJpYXQiOjE1NjU1ODk3MzIsImV4cCI6MTU2Njc5OTMzMn0.nDv25ex7XuTlmXgNzGX46LqMZItVFyNHQpmL9UQf-aUx");
+    }
+
+    @Test
+    public void printDate(){
+        Date date = new Date(1603107796L) ;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
+        System.out.println(format.format(date));
     }
 
 }
