@@ -1,8 +1,15 @@
 package com.yicj.contentcenter.domain.entity.content;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import javax.persistence.*;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "share")
 public class Share {
     /**

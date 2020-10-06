@@ -64,6 +64,14 @@
                 <artifactId>weixin-java-miniapp</artifactId>
                 <version>3.9.0</version>
             </dependency>
+
+            <!--spring-cloud-alibba默认使用的是2.0.2版本，这个版本的starter使用的rocketmq版本是4.4.0
+            与服务端4.5.1不兼容，所以这里手动指定2.0.3的starter-->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>2.0.3</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
