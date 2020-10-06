@@ -1,4 +1,4 @@
-package com.yicj.usercenter.auth;
+package com.yicj.contentcenter.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

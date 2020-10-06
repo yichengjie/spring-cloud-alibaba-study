@@ -2,6 +2,7 @@ package com.yicj.usercenter.controller.user;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import com.yicj.usercenter.auth.CheckLogin;
 import com.yicj.usercenter.domain.dto.user.JwtTokenResponseDTO;
 import com.yicj.usercenter.domain.dto.user.LoginRespDTO;
 import com.yicj.usercenter.domain.dto.user.UserLoginDTO;
@@ -27,6 +28,7 @@ public class UserController {
     private final WxMaService wxMaService ;
     private final JwtOperator jwtOperator ;
 
+    @CheckLogin
     @GetMapping("/{id}")
     public User findById(@PathVariable Integer id){
         log.info("我被调用了...");

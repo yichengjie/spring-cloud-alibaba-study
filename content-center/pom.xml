@@ -91,6 +91,11 @@
             <scope>runtime</scope>
         </dependency>
         <!-- jwt 相关 end-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,4 +1,4 @@
-package com.yicj.usercenter.auth;
+package com.yicj.contentcenter.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
