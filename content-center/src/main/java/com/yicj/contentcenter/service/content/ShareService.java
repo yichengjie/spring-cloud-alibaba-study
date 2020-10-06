@@ -58,6 +58,7 @@ public class ShareService {
         if (!Objects.equals("NOT_YET", share.getAuditStatus())) {
             throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
         }
+        // 向数据库添加记录
         auditByIdInDB(id, auditDTO);
         //3. 如果是pass，那么发送消息给rocketmq，让用户中心消费，并为发布人添加积分
         if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())){
@@ -77,7 +78,8 @@ public class ShareService {
         return share;
     }
 
-    private void auditByIdInDB(Integer id, ShareAuditDTO auditDTO) {
+    @Transactional(rollbackFor = Exception.class)
+    public void auditByIdInDB(Integer id, ShareAuditDTO auditDTO) {
         //2. 审核资源，将状态设为pass/reject
         Share share = Share.builder()
                 .id(id)

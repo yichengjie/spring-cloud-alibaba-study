@@ -40,7 +40,6 @@ public class AddBonusTransactionListener implements RocketMQLocalTransactionList
     public RocketMQLocalTransactionState checkLocalTransaction(Message msg) {
         MessageHeaders headers = msg.getHeaders();
         String transactionId = (String) headers.get(RocketMQHeaders.TRANSACTION_ID);
-
         // select * from xxx where transaction_id = xxx
         RocketmqTransactionLog transactionLog = this.rocketmqTransactionLogMapper.selectOne(
             RocketmqTransactionLog.builder()
