@@ -1,6 +1,6 @@
-package com.yicj.contentcenter.auth;
+package com.yicj.usercenter.auth;
 
-import com.yicj.contentcenter.utils.JwtOperator;
+import com.yicj.usercenter.utils.JwtOperator;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -20,11 +20,11 @@ import java.util.Objects;
 @Aspect
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CheckLoginAspect {
+public class CheckAuthAspect {
 
     private final JwtOperator jwtOperator ;
 
-    @Around("@annotation(com.yicj.contentcenter.auth.CheckLogin)")
+    @Around("@annotation(com.yicj.usercenter.auth.CheckLogin)")
     public Object checkLogin(ProceedingJoinPoint point) throws Throwable {
         checkToken();
         return point.proceed();
@@ -56,7 +56,7 @@ public class CheckLoginAspect {
         return attributes.getRequest();
     }
 
-    @Around("@annotation(com.yicj.contentcenter.auth.CheckAuthorization)")
+    @Around("@annotation(com.yicj.usercenter.auth.CheckAuthorization)")
     public Object checkAuthorization(ProceedingJoinPoint point) throws Throwable {
         try {
             // 1. 验证token是否合法；

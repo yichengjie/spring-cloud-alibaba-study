@@ -9,14 +9,19 @@ import com.yicj.contentcenter.feignclient.TestUserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
 
+@RefreshScope
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
@@ -28,6 +33,8 @@ public class TestController {
     private TestUserCenterFeignClient testUserCenterFeignClient ;
     @Autowired
     private TestBaiduFeignClient testBaiduFeignClient ;
+    @Autowired
+    private RestTemplate restTemplate ;
 
     @GetMapping("/test")
     public List<Share> testInsert(){
@@ -63,5 +70,20 @@ public class TestController {
     @GetMapping("/baidu")
     public String baiduIndex(){
         return testBaiduFeignClient.index() ;
+    }
+
+
+    @GetMapping("/tokenRelay/{userId}")
+    public UserDTO tokenRelay(@PathVariable Integer userId){
+        return restTemplate.getForObject("http://user-center/users/{userId}",
+                UserDTO.class, userId) ;
+    }
+
+    @Value("${your.configuration}")
+    private String yourConfiguration ;
+
+    @GetMapping("/test-config")
+    public String testNacosConfiguration(){
+        return this.yourConfiguration ;
     }
 }
