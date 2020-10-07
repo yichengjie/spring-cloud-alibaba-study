@@ -7,12 +7,14 @@ import com.yicj.contentcenter.domain.entity.content.Share;
 import com.yicj.contentcenter.feignclient.TestBaiduFeignClient;
 import com.yicj.contentcenter.feignclient.TestUserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,5 +87,15 @@ public class TestController {
     @GetMapping("/test-config")
     public String testNacosConfiguration(){
         return this.yourConfiguration ;
+    }
+
+    @Autowired
+    private Source source ;
+
+    @GetMapping("/test-stream")
+    public String testStream(){
+        Message<String> message = MessageBuilder.withPayload("消息体测试").build();
+        source.output().send(message) ;
+        return "success" ;
     }
 }
