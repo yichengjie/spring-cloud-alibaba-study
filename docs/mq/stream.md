@@ -43,6 +43,20 @@
         return "success" ;
     }
     ```
+4. 自定义接口发送消息
+    ```text
+    1. 编写接口类
+       public interface MySource {
+           String MY_OUTPUT = "my-output" ;
+           @Output(MY_OUTPUT)
+           MessageChannel output();
+       }
+    2. 在EnableBinding中添加MySource
+       @EnableBinding({Source.class, MySource.class})
+    3. 添加配置
+       # 配置定义out-put
+       spring.cloud.stream.bindings.my-output.destination= stream-my-topic
+    ```
 #### 消费者相关
 1. 启动类上添加注解
    @EnableBinding(Sink.class)
@@ -68,3 +82,4 @@
        }
    }
     ```
+4. 自定义接口发送消息

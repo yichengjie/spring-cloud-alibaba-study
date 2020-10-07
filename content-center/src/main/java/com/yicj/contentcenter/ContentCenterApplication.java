@@ -1,6 +1,7 @@
 package com.yicj.contentcenter;
 
 import com.yicj.contentcenter.auth.RestTemplateTokenRelayInterceptor;
+import com.yicj.contentcenter.rocketmq.MySource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -12,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
 import java.util.Collections;
 
-@EnableBinding(Source.class)
+@EnableBinding({Source.class, MySource.class})
 @EnableFeignClients
 @SpringBootApplication
 // 扫描mybatis哪些包里面的接口

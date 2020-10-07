@@ -6,6 +6,7 @@ import com.yicj.contentcenter.domain.dto.user.UserDTO;
 import com.yicj.contentcenter.domain.entity.content.Share;
 import com.yicj.contentcenter.feignclient.TestBaiduFeignClient;
 import com.yicj.contentcenter.feignclient.TestUserCenterFeignClient;
+import com.yicj.contentcenter.rocketmq.MySource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -96,6 +97,16 @@ public class TestController {
     public String testStream(){
         Message<String> message = MessageBuilder.withPayload("消息体测试").build();
         source.output().send(message) ;
+        return "success" ;
+    }
+
+    @Autowired
+    private MySource mySource ;
+
+    @GetMapping("/test-my-stream")
+    public String testMyStream(){
+        Message<String> message = MessageBuilder.withPayload("自定义消息体测试").build();
+        mySource.output().send(message) ;
         return "success" ;
     }
 }
