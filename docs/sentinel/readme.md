@@ -14,3 +14,5 @@
     spring.cloud.sentinel.transport.dashboard=192.168.221.128:8080
     ```
 3. sentinel 规则参数总结: http://www.imooc.com/article/289345
+4. sentinel api: http://www.imooc.com/article/289384
+5. SentinelBeanPostProcessor源码学习
