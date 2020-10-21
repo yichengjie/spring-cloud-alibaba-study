@@ -90,54 +90,54 @@
     ```
 9. 扩展Ribbon支持Nacos权重的三种方式：http://www.imooc.com/article/288660
 10 相同集群的实例优先调用
-```text
-// 同一个集群优先调用
-@Slf4j
-public class NacosSameClusterWeightedRule extends AbstractLoadBalancerRule {
-    @Autowired
-    private NacosDiscoveryProperties nacosDiscoveryProperties ;
-    @Override
-    public void initWithNiwsConfig(IClientConfig clientConfig) { }
-
-    @Override
-    public Server choose(Object key) {
-        // 获取配置文件中的集群名称BJ
-        String clusterName = nacosDiscoveryProperties.getClusterName();
-        BaseLoadBalancer loadBalancer = (BaseLoadBalancer)this.getLoadBalancer();
-        // 微服务的名称
-        String name = loadBalancer.getName();
-        //服务发现相关的api
-        NamingService namingService = nacosDiscoveryProperties.namingServiceInstance();
-        try {
-            //1. 找到指定服务的所有实例A
-            List<Instance> instances = namingService.selectInstances(name, true);
-            //2. 过滤出相同集群下的所有实例B
-            List<Instance> sameClusterInstances = instances.stream()
-                    .filter(instance -> Objects.equals(instance.getClusterName(), clusterName))
-                    .collect(Collectors.toList());
-            //3. 如果B是空，就用A
-            List<Instance> instancesToBeanChosen = new ArrayList<>() ;
-            if (CollectionUtils.isEmpty(sameClusterInstances)){
-                instancesToBeanChosen = instances ;
-                log.info("发生跨集群的调用，name = {}, clusterName = {}, instances = {}",name, clusterName, instances);
-            }else {
-                instancesToBeanChosen = sameClusterInstances ;
+    ```text
+    // 同一个集群优先调用
+    @Slf4j
+    public class NacosSameClusterWeightedRule extends AbstractLoadBalancerRule {
+        @Autowired
+        private NacosDiscoveryProperties nacosDiscoveryProperties ;
+        @Override
+        public void initWithNiwsConfig(IClientConfig clientConfig) { }
+    
+        @Override
+        public Server choose(Object key) {
+            // 获取配置文件中的集群名称BJ
+            String clusterName = nacosDiscoveryProperties.getClusterName();
+            BaseLoadBalancer loadBalancer = (BaseLoadBalancer)this.getLoadBalancer();
+            // 微服务的名称
+            String name = loadBalancer.getName();
+            //服务发现相关的api
+            NamingService namingService = nacosDiscoveryProperties.namingServiceInstance();
+            try {
+                //1. 找到指定服务的所有实例A
+                List<Instance> instances = namingService.selectInstances(name, true);
+                //2. 过滤出相同集群下的所有实例B
+                List<Instance> sameClusterInstances = instances.stream()
+                        .filter(instance -> Objects.equals(instance.getClusterName(), clusterName))
+                        .collect(Collectors.toList());
+                //3. 如果B是空，就用A
+                List<Instance> instancesToBeanChosen = new ArrayList<>() ;
+                if (CollectionUtils.isEmpty(sameClusterInstances)){
+                    instancesToBeanChosen = instances ;
+                    log.info("发生跨集群的调用，name = {}, clusterName = {}, instances = {}",name, clusterName, instances);
+                }else {
+                    instancesToBeanChosen = sameClusterInstances ;
+                }
+                //4. 基于权重的负载均衡算法，返回1个实例
+                Instance instance = ExtendBalancer.getHostByRandomWeight2(instancesToBeanChosen);
+                log.info("选择的实例是： port ={}, instance ={}", instance.getPort(), instance);
+                return new NacosServer(instance);
+            }catch (NacosException e){
+                log.error("发生异常：",e);
+                return null;
             }
-            //4. 基于权重的负载均衡算法，返回1个实例
-            Instance instance = ExtendBalancer.getHostByRandomWeight2(instancesToBeanChosen);
-            log.info("选择的实例是： port ={}, instance ={}", instance.getPort(), instance);
-            return new NacosServer(instance);
-        }catch (NacosException e){
-            log.error("发生异常：",e);
-            return null;
+        }
+    
+        static class ExtendBalancer extends Balancer{
+            protected static Instance getHostByRandomWeight2(List<Instance> hosts) {
+                return getHostByRandomWeight(hosts) ;
+            }
         }
     }
-
-    static class ExtendBalancer extends Balancer{
-        protected static Instance getHostByRandomWeight2(List<Instance> hosts) {
-            return getHostByRandomWeight(hosts) ;
-        }
-    }
-}
-```
+    ```
 11. 支持基于元数据的版本管理：http://www.imooc.com/article/288674

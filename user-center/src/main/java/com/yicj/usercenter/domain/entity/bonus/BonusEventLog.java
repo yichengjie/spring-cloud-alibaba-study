@@ -1,15 +1,8 @@
 package com.yicj.usercenter.domain.entity.bonus;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-
 import java.util.Date;
 import javax.persistence.*;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "bonus_event_log")
 public class BonusEventLog {
     /**
